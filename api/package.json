@@ -3,5 +3,7 @@
   "version": "1.0.0",
   "description": "Azure Functions for SCS website",
   "scripts": {},
-  "dependencies": {}
+  "dependencies": {
+    "@sendgrid/mail": "^8.1.0"
+  }
 }
