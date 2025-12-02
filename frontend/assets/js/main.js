@@ -150,31 +150,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const result = await res.json();
 
-      if (result.success) {
-        if (statusEl) {
-          statusEl.textContent = "Thank you — your enquiry has been sent.";
-          statusEl.style.color = "green";
-        } else {
-          alert("Thank you — your enquiry has been sent.");
-        }
-        form.reset();
+            if (result.success) {
+        // ✅ 发送成功，跳转到感谢页面
+        window.location.href = "thanks.html";
       } else {
-        const msg = "Failed to send. " + (result.error || "");
-        if (statusEl) {
-          statusEl.textContent = msg;
-          statusEl.style.color = "red";
-        } else {
-          alert(msg);
-        }
+        // ❌ API 返回失败，跳转到错误页面
+        window.location.href = "error.html";
       }
+
     } catch (err) {
       console.error(err);
-      if (statusEl) {
-        statusEl.textContent = "Network error — please try again later.";
-        statusEl.style.color = "red";
-      } else {
-        alert("Network error — please try again later.");
-      }
+      // ❌ 网络或其他异常，也跳转到错误页面
+      window.location.href = "error.html";
     }
   });
 });
