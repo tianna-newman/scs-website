@@ -12,7 +12,17 @@ module.exports = async function (context, req) {
     return;
   }
 
-  const { name, email, phone, message } = req.body || {};
+  // 🔑 关键：兼容 req.body 为空的情况
+  let body = req.body;
+  if (!body && req.rawBody) {
+    try {
+      body = JSON.parse(req.rawBody);
+    } catch (e) {
+      context.log('Failed to parse rawBody', e);
+    }
+  }
+
+  const { name, email, phone, message } = body || {};
 
   context.log('Enquiry received', { name, email, phone });
 
