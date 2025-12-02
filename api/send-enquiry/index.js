@@ -1,7 +1,7 @@
 const nodemailer = require("nodemailer");
 
 module.exports = async function (context, req) {
-  // 处理 CORS 预检请求
+  // CORS 预检
   if (req.method === "OPTIONS") {
     context.res = {
       status: 204,
@@ -24,15 +24,36 @@ module.exports = async function (context, req) {
     }
   }
 
-  const { name, email, phone, message, serviceType } = body || {};
-    
-  // 把服务类型数组整理成一行文字
-  let serviceSummary = "Not specified";
-  if (Array.isArray(serviceType) && serviceType.length > 0) {
-    serviceSummary = serviceType.join(", ");
+  const {
+    name,
+    email,
+    phone,
+    preferredDate,
+    message,
+    serviceType,
+    privacyConsent,
+  } = body || {};
+
+  // serviceType 既可能是 string 也可能是 array，这里统一成数组
+  let serviceList = [];
+  if (Array.isArray(serviceType)) {
+    serviceList = serviceType;
+  } else if (typeof serviceType === "string" && serviceType.trim()) {
+    serviceList = [serviceType.trim()];
   }
 
-    context.log("Enquiry received", { name, email, phone, serviceType });
+  let serviceSummary = "Not specified";
+  if (serviceList.length > 0) {
+    serviceSummary = serviceList.join(", ");
+  }
+
+  context.log("Enquiry received", {
+    name,
+    email,
+    phone,
+    preferredDate,
+    serviceType: serviceList,
+  });
 
   if (!name || !email || !message) {
     context.res = {
@@ -43,17 +64,21 @@ module.exports = async function (context, req) {
     return;
   }
 
-  // ===== 配置 SMTP（Outlook / Microsoft 365）=====
-  const host = process.env.SMTP_HOST || "smtp.office365.com";
+  // ===== SMTP 配置（Gmail，使用应用专用密码）=====
+  const host = process.env.SMTP_HOST || "smtp.gmail.com";
   const port = process.env.SMTP_PORT
     ? parseInt(process.env.SMTP_PORT, 10)
-    : 587; // TLS
-  const user = process.env.SMTP_USER; // 一般就是 info@scse.com.au
-  const pass = process.env.SMTP_PASS; // 这个邮箱的密码
+    : 587;
+  const user = process.env.SMTP_USER; // 例如：akiyoru.momiji@gmail.com
+  const pass = process.env.SMTP_PASS; // Gmail 应用专用密码
 
-  const toEmail = process.env.EMAIL_TO || "info@scse.com.au"; // 收件人
+  // 收件人：支持逗号分隔多个
+  const toEmail =
+    process.env.EMAIL_TO || "info@scse.com.au,admin@gohubme.com";
+
+  // 发件人（显示名 + 邮箱）
   const fromEmail =
-    process.env.EMAIL_FROM || user || "info@scse.com.au"; // 发件人
+    process.env.EMAIL_FROM || user || "akiyoru.momiji@gmail.com";
 
   if (!user || !pass) {
     context.log("SMTP_USER or SMTP_PASS is not set");
@@ -68,14 +93,18 @@ module.exports = async function (context, req) {
   const transporter = nodemailer.createTransport({
     host,
     port,
-    secure: port === 465, // 465 才用 SSL，587 用 STARTTLS
+    secure: port === 465, // 465 = SSL, 587 = STARTTLS
     auth: {
       user,
       pass,
     },
   });
 
-    const subject = `【SCS Website】New enquiry from ${name}`;
+  const submittedAt = new Date().toLocaleString("en-AU", {
+    timeZone: "Australia/Perth",
+  });
+
+  const subject = `【SCS Website】New enquiry from ${name}`;
 
   const textBody = `
 Hi Michael,
@@ -85,7 +114,10 @@ You have a new enquiry from the SCS website.
 Name: ${name}
 Email: ${email}
 Phone: ${phone || "N/A"}
-Services Wanted: ${serviceSummary}
+Preferred Date/Time: ${preferredDate || "Not specified"}
+Services: ${serviceSummary}
+Privacy Consent: ${privacyConsent ? "Yes" : "No"}
+Submitted At: ${submittedAt}
 
 Message:
 ${message}
@@ -94,7 +126,7 @@ ${message}
 This email was sent automatically from the SCS website enquiry form.
   `.trim();
 
-    const htmlBody = `
+  const htmlBody = `
   <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:14px;color:#222;">
     <h2 style="margin:0 0 8px 0;">New enquiry from SCS website</h2>
     <p style="margin:0 0 16px 0;">Hi Michael,</p>
@@ -116,8 +148,20 @@ This email was sent automatically from the SCS website enquiry form.
         <td style="padding:4px 8px;">${phone || "N/A"}</td>
       </tr>
       <tr>
+        <td style="padding:4px 8px;font-weight:bold;">Preferred Date/Time:</td>
+        <td style="padding:4px 8px;">${preferredDate || "Not specified"}</td>
+      </tr>
+      <tr>
         <td style="padding:4px 8px;font-weight:bold;">Services:</td>
         <td style="padding:4px 8px;">${serviceSummary}</td>
+      </tr>
+      <tr>
+        <td style="padding:4px 8px;font-weight:bold;">Privacy Consent:</td>
+        <td style="padding:4px 8px;">${privacyConsent ? "Yes" : "No"}</td>
+      </tr>
+      <tr>
+        <td style="padding:4px 8px;font-weight:bold;">Submitted At:</td>
+        <td style="padding:4px 8px;">${submittedAt}</td>
       </tr>
     </table>
 
@@ -132,7 +176,7 @@ This email was sent automatically from the SCS website enquiry form.
   </div>
   `;
 
-    const mailOptions = {
+  const mailOptions = {
     from: `"SCS Website Notification" <${fromEmail}>`,
     to: toEmail,
     replyTo: email,
@@ -140,7 +184,6 @@ This email was sent automatically from the SCS website enquiry form.
     text: textBody,
     html: htmlBody,
   };
-
 
   try {
     await transporter.sendMail(mailOptions);
@@ -156,7 +199,8 @@ This email was sent automatically from the SCS website enquiry form.
       headers: { "Access-Control-Allow-Origin": "*" },
       body: {
         success: false,
-        error: error && error.message ? error.message : "Failed to send email",
+        error:
+          (error && error.message) || "Failed to send email",
       },
     };
   }
