@@ -119,11 +119,21 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    const payload = {
+        // 收集用户勾选的服务类型（用 label 上的文字）
+    const selectedServices = Array.from(
+      form.querySelectorAll('input[name="serviceType"]:checked')
+    ).map((input) => {
+      const label = input.parentElement;
+      return label ? label.textContent.trim() : input.value;
+    });
+
+
+        const payload = {
       name: fullName,   // 注意：发送给 API 的字段是 name
       email,
       phone,
-      message
+      message,
+      serviceType: selectedServices   // ★ 新增：勾选的服务列表
     };
 
     try {
