@@ -3,78 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-          content="Request a quote from Specialist Contracting Services for shot blasting and surface grinding in Perth.">
+    
+    <meta name="description" content="Contact Specialist Contracting Services for a free quote on shot blasting and surface grinding in Perth. Call 0411 649 451 or submit an online enquiry.">
+    <meta name="keywords" content="contact SCS Perth, surface preparation quote, shot blasting quote Perth, get a quote, contact form">
 
-    <title>Contact / Get a Quote | Specialist Contracting Services</title>
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.scse.com.au/contact.html">
+    <meta property="og:title" content="Contact Us / Get a Quote - SCS Perth">
+    <meta property="og:description" content="Contact SCS for professional surface preparation services in Perth. Free quotes available.">
+    <meta property="og:image" content="https://www.scse.com.au/assets/images/bg.webp">
 
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://www.scse.com.au/contact.html">
+    <meta property="twitter:title" content="Contact Us / Get a Quote - SCS Perth">
+    <meta property="twitter:description" content="Contact SCS for professional surface preparation services in Perth. Free quotes available.">
+    <meta property="twitter:image" content="https://www.scse.com.au/assets/images/bg.webp">
+
+    <title>Contact Us / Get a Quote | SCS - Specialist Contracting Services</title>
     <link rel="stylesheet" href="assets/css/styles.css">
 
+    <!-- Page-specific styles for contact.html -->
     <style>
-        body.contact-page {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            background: linear-gradient(160deg, #f4f6fb 0%, #e9eef7 35%, #dbe6f3 70%, #cfdbee 100%);
-        }
-
+        /* Main content section with compact padding */
         .contact-section {
-            padding: 80px 0 60px;
+            padding: 40px 0 40px;
         }
 
+        /* Container with narrower margins for this page */
         .contact-section .container {
             max-width: 1100px;
+            width: 100%;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 32px;
         }
 
         .contact-section h2 {
-            margin-bottom: 0.5rem;
-            font-size: 2rem;
-            color: #0f4c81;
+            text-align: left;
+            margin-bottom: 0.75rem;
         }
 
         .contact-intro {
-            max-width: 680px;
-            font-size: 0.98rem;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
             color: #444;
-            margin-bottom: 1.75rem;
         }
 
+        /* Two-column grid: left for contact info, right for form */
         .contact-grid {
             display: grid;
-            grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.3fr);
-            gap: 22px;
-            align-items: flex-start;
+            grid-template-columns: 250px minmax(750px, 1fr);
+            gap: 30px;
+            align-items: stretch;
         }
 
-        /* Left column cards */
+        /* Vertical stack container for contact info cards */
         .contact-info-stack {
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            height: 100%;
             justify-content: space-between;
+            height: 100%;
         }
 
+        /* Semi-transparent glassmorphic cards */
         .contact-card {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 14px;
-            padding: 14px 14px 12px;
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(15, 76, 129, 0.06);
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            padding: 14px 16px 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+            backdrop-filter: blur(3px);
         }
 
         .contact-card h3 {
-            margin: 0 0 4px;
-            font-size: 1rem;
-            color: #2c3e50;
+            margin-bottom: 4px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #222;
         }
 
         .contact-card p {
-            margin: 0;
-            font-size: 0.9rem;
-            color: #555;
+            margin-bottom: 4px;
+            font-size: 0.95rem;
+            color: #444;
         }
 
         .contact-card .card-emphasis {
@@ -110,7 +122,7 @@
             opacity: 0.8;
         }
 
-        /* Right column form */
+        /* Form container with glassmorphic effect */
         .contact-form {
             background: rgba(255, 255, 255, 0.12);
             border-radius: 18px;
@@ -149,6 +161,7 @@
             margin-left: 2px;
         }
 
+        /* Input fields and textarea with semi-transparent background */
         .form-group input[type="text"],
         .form-group input[type="email"],
         .form-group textarea {
@@ -245,7 +258,7 @@
             cursor: pointer;
         }
 
-        /* 提交按钮禁用态 */
+        /* ✅ 新增：提交按钮禁用样式 */
         .btn.btn-primary:disabled,
         .btn-submit:disabled {
             background-color: #b0bccb;
@@ -254,18 +267,12 @@
             opacity: 0.85;
         }
 
-        /* 字段下方小红字错误提示 */
+        /* ✅ 新增：字段下方错误提示小红字 */
         .field-error {
             margin-top: 4px;
             font-size: 0.8rem;
             color: #e74c3c;
             display: none;
-        }
-
-        /* 状态信息 */
-        .form-status {
-            margin-top: 8px;
-            font-size: 0.9rem;
         }
 
         /* Mobile responsive styles */
@@ -394,8 +401,7 @@
                                 <label for="preferredDate">
                                     Preferred / Approx. Date &amp; Time
                                 </label>
-                                <input type="text" id="preferredDate" name="preferredDate"
-                                       placeholder="e.g. Early December, weekdays after 3pm">
+                                <input type="text" id="preferredDate" name="preferredDate" placeholder="e.g. Early December, weekdays after 3pm">
                             </div>
                         </div>
 
@@ -421,39 +427,39 @@
                                 Job Details<span class="required">*</span>
                             </label>
                             <textarea id="message" name="message" required
-                                      placeholder="Tell us about the area (size, current surface, access), timing, and any special requirements."></textarea>
+                                placeholder="Tell us about the area (size, current surface, access), timing, and any special requirements."></textarea>
                             <p class="field-error" id="message-error"></p>
                         </div>
 
-                        <div class="form-group privacy-consent">
-                            <input type="checkbox" id="privacyConsent" name="privacyConsent" required>
-                            <label for="privacyConsent">
-                                I agree to the
-                                <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a>
-                                and consent to SCS storing my details for the purpose of handling this enquiry.
-                                <span class="required">*</span>
-                            </label>
+                        <div class="form-group">
+                            <div class="privacy-consent">
+                                <input type="checkbox" id="privacyConsent" name="privacyConsent" required>
+                                <label for="privacyConsent">
+                                    I agree that SCS may use my details to respond to this enquiry and provide quotes or
+                                    services. I have read the
+                                    <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a>.
+                                    <span class="required">*</span>
+                                </label>
+                            </div>
                         </div>
                         <p class="field-error" id="privacy-error"></p>
 
                         <div class="form-footer">
-                            <p class="form-note">
-                                We only use your details to respond to this enquiry and provide quotes/services.
-                            </p>
-
                             <button type="submit"
                                     class="btn btn-primary btn-submit"
                                     id="submit-btn"
                                     disabled>
                                 Send Enquiry
                             </button>
+                            <p class="form-note">
+                                Fields marked with <span class="required">*</span> are required.
+                            </p>
+                            <p id="form-status" class="form-status" aria-live="polite"></p>
                         </div>
-
-                        <div id="form-status" class="form-status" aria-live="polite"></div>
                     </form>
                 </div>
-
             </div>
+
         </div>
     </section>
 
