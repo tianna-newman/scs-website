@@ -1,0 +1,7 @@
+{
+  "name": "scs-api",
+  "version": "1.0.0",
+  "description": "Azure Functions for SCS website",
+  "scripts": {},
+  "dependencies": {}
+}
