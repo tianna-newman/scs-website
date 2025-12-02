@@ -361,7 +361,7 @@
                                 <label for="fullName">
                                     Full Name<span class="required">*</span>
                                 </label>
-                                <input type="text" id="fullName" name="fullName" required>
+                                <input type="text" id="fullName" name="name" required>
                             </div>
 
                             <div class="form-group">
@@ -447,48 +447,6 @@
     <script src="assets/js/navbar.js"></script>
         <script src="assets/js/main.js"></script>
         <script src="assets/js/footer.js"></script>
-
-    <script>
-document.getElementById('contact-form').addEventListener('submit', async function (e) {
-    e.preventDefault(); // 防止表单正常提交（我们改用 fetch）
-
-    const statusEl = document.getElementById('form-status');
-    statusEl.textContent = "Sending...";
-
-    // 获取表单字段
-    const formData = new FormData(this);
-
-    const data = {
-        name: formData.get("name"),
-        email: formData.get("email"),
-        phone: formData.get("phone"),
-        message: formData.get("message")
-    };
-
-    try {
-        const response = await fetch("/api/send-enquiry", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data)
-        });
-
-        const result = await response.json();
-
-        if (result.success) {
-            statusEl.textContent = "Thank you — your enquiry has been sent.";
-            statusEl.style.color = "green";
-            this.reset(); // 清空表单
-        } else {
-            statusEl.textContent = "Failed to send. " + (result.error || "");
-            statusEl.style.color = "red";
-        }
-    } catch (err) {
-        console.error(err);
-        statusEl.textContent = "Network error — please try again later.";
-        statusEl.style.color = "red";
-    }
-});
-</script>
     
 </body>
 </html>
