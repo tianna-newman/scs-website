@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="description" content="Meet Michael, founder of Specialist Contracting Services with 46+ years of surface preparation experience in Perth, Western Australia.">
+    <meta name="keywords" content="surface preparation specialist Perth, concrete specialist, experienced contractor Perth, SCS team">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.scse.com.au/about.html">
+    <meta property="og:title" content="About SCS - 46+ Years of Surface Preparation Experience">
+    <meta property="og:description" content="Meet Michael, the surface preparation specialist behind SCS with over 46 years of hands-on experience in Perth.">
+    <meta property="og:image" content="https://www.scse.com.au/assets/images/michael-graves.webp">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://www.scse.com.au/about.html">
+    <meta property="twitter:title" content="About SCS - 46+ Years of Surface Preparation Experience">
+    <meta property="twitter:description" content="Meet Michael, the surface preparation specialist behind SCS with over 46 years of experience.">
+    <meta property="twitter:image" content="https://www.scse.com.au/assets/images/michael-graves.webp">
+
+    <title>About | SCS - Specialist Contracting Services</title>
+
+    <!-- Global styles -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+
+    <!-- Page-specific styles for about.html -->
+    <style>
+        /* 让主体区域把 footer 顶到底部 */
+        html, body {
+            height: 100%;
+        }
+
+        body.about-page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .about-page-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .about-section {
+            flex: 1;
+            padding: 80px 0 60px;
+        }
+
+        .about-section .container {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .about-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .about-header h2 {
+            font-size: 2.6rem;
+            color: #0f4c81;
+            margin-bottom: 12px;
+        }
+
+        .about-header p {
+            font-size: 1.2rem;
+            line-height: 1.7;
+            color: #123047;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        /* ====== 外层毛玻璃卡片（只有这一层有背景+blur） ====== */
+        .about-content-card {
+            background: rgba(255, 255, 255, 0.18);
+            border-radius: 24px;
+            padding: 28px;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            box-shadow: 0 26px 40px rgba(0, 0, 0, 0.18);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        /* ====== 内层只做排版，不再叠加第二层背景/blur ====== */
+        .team-member {
+            border-radius: 18px;
+            padding: 8px 4px 0;
+            /* 取消第二层玻璃效果 */
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+        }
+
+        /* Header layout: avatar on left, title info on right */
+        .member-header {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            margin-bottom: 16px;
+        }
+
+        /* Square avatar container */
+        .member-avatar {
+            width: 150px;
+            max-width: 30vw;
+            aspect-ratio: 1 / 1;
+            position: relative;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .member-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 18px;
+            display: block;
+        }
+
+        .member-titles {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .member-info h3 {
+            font-size: 2rem;
+            margin-bottom: 4px;
+            color: #1f2933;
+        }
+
+        .member-role {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #4a5568;
+        }
+
+        /* Experience badge */
+        .member-experience-tag {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            padding: 3px 10px;
+            border-radius: 999px;
+            background: #0f4c81;
+            color: #ffffff;
+            margin-top: 8px;
+            width: fit-content;
+            white-space: nowrap;
+        }
+
+        .member-info p {
+            font-size: 1.1rem;
+            color: #2d3748;
+            line-height: 1.7;
+            margin-top: 8px;
+        }
+
+        /* Mobile responsive styles */
+        @media (max-width: 768px) {
+            .about-section {
+                padding: 72px 0 40px;
+            }
+
+            .about-content-card {
+                padding: 20px;
+            }
+
+            .team-member {
+                padding-top: 0;
+            }
+
+            .member-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+
+            .member-avatar {
+                width: 190px;
+                max-width: 60vw;
+            }
+
+            .member-info h3 {
+                font-size: 1.8rem;
+            }
+
+            .member-role {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body class="about-page">
+<div class="about-page-main">
+    <!-- Navigation -->
+    <div id="navbar-placeholder"></div>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="container">
+            <div class="about-header">
+                <h2>About Specialist Contracting Services</h2>
+                <p>
+                    Specialist Contracting Services is led by Michael, a hands-on surface preparation specialist who
+                    has spent decades working on concrete floors across Western Australia.
+                </p>
+            </div>
+
+            <div class="about-content-card">
+                <div class="team-member">
+                    <div class="member-info">
+                        <div class="member-header">
+                            <!-- Avatar -->
+                            <div class="member-avatar">
+                                <img src="assets/images/michael-graves.webp"
+                                     alt="Michael - Founder & Surface Preparation Specialist">
+                            </div>
+
+                            <!-- Name, role and experience -->
+                            <div class="member-titles">
+                                <h3>Michael Grave</h3>
+                                <div class="member-role">Founder &amp; Surface Preparation Specialist</div>
+                                <div class="member-experience-tag">46+ years of surface prep experience</div>
+                            </div>
+                        </div>
+
+                        <!-- Bio description -->
+                        <p>
+                            Michael is the face behind Specialist Contracting Services, bringing over 46 years of
+                            hands-on experience in concrete surface preparation. Throughout his career he has specialised
+                            in shot blasting and surface grinding for industrial, commercial and residential projects
+                            across Western Australia. Known for his practical problem-solving, attention to detail and
+                            commitment to doing the job right the first time, Michael takes pride in preparing every
+                            surface to the standard needed for long-lasting coatings and finishes.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+</div>
+
+<script src="assets/js/navbar.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/footer.js"></script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+# Allow all search engines
+User-agent: *
+Allow: /
+
+# Disallow admin and thank you pages
+Disallow: /thanks.html
+Disallow: /error.html
+
+# Sitemap location
+Sitemap: https://www.scse.com.au/sitemap.xml

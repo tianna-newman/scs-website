@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="description" content="View our portfolio of shot blasting and surface grinding projects in Perth. Real photos and videos of completed surface preparation work by SCS.">
+    <meta name="keywords" content="surface preparation gallery, shot blasting photos, concrete grinding examples, Perth projects, before and after">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.scse.com.au/gallery.html">
+    <meta property="og:title" content="Project Gallery - SCS Surface Preparation Work in Perth">
+    <meta property="og:description" content="View our portfolio of completed shot blasting and surface grinding projects across Perth.">
+    <meta property="og:image" content="https://www.scse.com.au/assets/images/EWLW2541.PNG">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://www.scse.com.au/gallery.html">
+    <meta property="twitter:title" content="Project Gallery - SCS Surface Preparation Work in Perth">
+    <meta property="twitter:description" content="View our portfolio of completed shot blasting and surface grinding projects.">
+    <meta property="twitter:image" content="https://www.scse.com.au/assets/images/EWLW2541.PNG">
+
+    <title>Gallery | SCS - Specialist Contracting Services</title>
+
+    <!-- Global styles -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+
+    <!-- Page-specific styles for gallery.html -->
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Main content area with flex to push footer to bottom */
+        .gallery-section {
+            flex: 1;
+            padding: 60px 0;
+        }
+
+        .gallery-section .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 16px 18px 24px;
+            background: transparent;
+        }
+
+        .gallery-section h2 {
+            color: #0f4c81;
+        }
+
+        .gallery-intro {
+            margin-bottom: 1.75rem;
+            font-size: 1.5rem;
+            color: #0f4c81;
+        }
+
+        /* =========================
+           Gallery Grid & Items
+        ========================= */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            max-width: 100%;
+            gap: 16px;
+        }
+
+        .gallery-item {
+            position: relative;
+            background: transparent;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+            min-height: 280px;
+        }
+
+        .gallery-media-wrapper {
+            position: relative;
+            width: 100%;
+            height: 180px; /* 控制图片区域高度，避免溢出到毛玻璃区域 */
+            overflow: hidden;
+            background: #000;
+            flex-shrink: 0;
+        }
+
+        .gallery-media-wrapper img,
+        .gallery-media-wrapper video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.25s ease;
+            display: block;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+        }
+
+        .gallery-item:hover .gallery-media-wrapper img,
+        .gallery-item:hover .gallery-media-wrapper video {
+            transform: scale(1.05);
+        }
+
+        .gallery-media-wrapper video {
+            border: none;
+        }
+
+        /* =========================
+           Caption (Frosted Glass)
+        ========================= */
+        .gallery-caption {
+            position: relative;
+            z-index: 1;
+            padding: 10px 12px;
+            font-size: 0.9rem;
+
+            /* 毛玻璃效果 */
+            background: rgba(255, 255, 255, 0.12);
+            border-top: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+
+            color: #222;
+            text-align: center; /* 文本居中 */
+        }
+
+        .gallery-caption-title {
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .gallery-caption-meta {
+            font-size: 0.78rem;
+            color: #777;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* =========================
+           Responsive breakpoints
+        ========================= */
+        @media (max-width: 1200px) {
+            .gallery-section {
+                padding: 40px 0;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .gallery-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .gallery-section {
+                padding: 24px 0 32px;
+            }
+
+            .gallery-section .container {
+                padding: 0 14px 18px;
+            }
+
+            .gallery-grid {
+                gap: 12px;
+            }
+
+            .gallery-caption {
+                padding: 8px 9px 9px;
+            }
+        }
+    </style>
+</head>
+<body class="gallery-page">
+    <!-- Navbar placeholder -->
+    <div id="navbar-placeholder"></div>
+
+    <header class="page-header gallery-header">
+        <div class="overlay"></div>
+    </header>
+
+    <section class="gallery-section">
+        <div class="container">
+            <h2>Project Gallery</h2>
+
+            <p class="gallery-intro">
+                A selection of Michael&rsquo;s past surface preparation work,
+                including industrial shot blasting, concrete grinding and epoxy
+                flooring projects across Perth. Photos and videos below are real
+                examples of floors prepared by Specialist Contracting Services.
+            </p>
+
+            <div class="gallery-grid">
+                <!-- Photos -->
+                <div class="gallery-item">
+                    <div class="gallery-media-wrapper">
+                        <img src="assets/images/EWLW2541.PNG"
+                             loading="lazy"
+                             alt="Blastrac 1-16DB4 ride-on shot blasting machine used for industrial concrete surface preparation in Perth">
+                    </div>
+                    <div class="gallery-caption">
+                        <div class="gallery-caption-title">BRAND NEW MACHINE!</div>
+                        <div class="gallery-caption-meta">Model: Blastrac 1-16DB4 ride-on shot blaster</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-media-wrapper">
+                        <img src="assets/images/IMG_0786.JPG"
+                             loading="lazy"
+                             alt="Specialist Contracting Services crew applying epoxy flooring after concrete surface preparation in a Perth factory workshop">
+                    </div>
+                    <div class="gallery-caption">
+                        <div class="gallery-caption-title">Project Photo – Epoxy Floor Installation</div>
+                        <div class="gallery-caption-meta">SCS team applying epoxy system in Perth factory</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-media-wrapper">
+                        <img src="assets/images/IMG_0789.JPG"
+                             loading="lazy"
+                             alt="Completed light grey epoxy floor coating around machinery after professional surface preparation in a Perth workshop">
+                    </div>
+                    <div class="gallery-caption">
+                        <div class="gallery-caption-title">Project Photo – Epoxy Workshop Floor</div>
+                        <div class="gallery-caption-meta">Non-slip epoxy coating around industrial equipment</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-media-wrapper">
+                        <img src="assets/images/IMG_2995.JPG"
+                             loading="lazy"
+                             alt="Industrial epoxy floor project showing freshly coated grey work zone after concrete surface preparation by SCS Perth">
+                    </div>
+                    <div class="gallery-caption">
+                        <div class="gallery-caption-title">Project Photo – Industrial Epoxy Work</div>
+                        <div class="gallery-caption-meta">Marked work area with high-build epoxy floor</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-media-wrapper">
+                        <img src="assets/images/IMG_3007.JPG"
+                             loading="lazy"
+                             alt="Large warehouse concrete floor with new blue and grey epoxy coating system installed after surface preparation in Perth">
+                    </div>
+                    <div class="gallery-caption">
+                        <div class="gallery-caption-title">Project Photo – Warehouse Coating</div>
+                        <div class="gallery-caption-meta">Epoxy finish in aircraft warehouse</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-media-wrapper">
+                        <img src="assets/images/IMG_3388.JPG"
+                             loading="lazy"
+                             alt="Blue epoxy safety walkway with black borders and yellow hazard ramp markings installed in an industrial facility by Specialist Contracting Services">
+                    </div>
+                    <div class="gallery-caption">
+                        <div class="gallery-caption-title">Project Photo – Safety Walkway Wrep</div>
+                        <div class="gallery-caption-meta">Epoxy safety path and hazard ramp marking</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-media-wrapper">
+                        <img src="assets/images/IMG_3390.JPG"
+                             loading="lazy"
+                             alt="Warehouse concrete floor during dust-free shot blasting with industrial vacuum extraction by SCS Perth">
+                    </div>
+                    <div class="gallery-caption">
+                        <div class="gallery-caption-title">Project Photo – Blasted Warehouse Floor</div>
+                        <div class="gallery-caption-meta">Concrete floor profile after shot blasting</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-media-wrapper">
+                        <img src="assets/images/IMG_4326.JPG"
+                             loading="lazy"
+                             alt="Operator using large blue shot blasting machine to prepare concrete deck under scaffolding on an industrial project in Perth">
+                    </div>
+                    <div class="gallery-caption">
+                        <div class="gallery-caption-title">Project Photo – Outdoor Shot Blasting</div>
+                        <div class="gallery-caption-meta">Large deck prepared for coating system</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-media-wrapper">
+                        <img src="assets/images/IMG_4493.JPG"
+                             loading="lazy"
+                             alt="Airworx X+ red industrial dust extractor supporting concrete shot blasting and grinding works on warehouse floor">
+                    </div>
+                    <div class="gallery-caption">
+                        <div class="gallery-caption-title">Project Photo – Dust Extraction</div>
+                        <div class="gallery-caption-meta">Vacuum for dust-free surface preparation</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-media-wrapper">
+                        <img src="assets/images/IMG_4541.JPG"
+                             loading="lazy"
+                             alt="Operator using walk-behind shot blaster to remove old coatings from warehouse concrete floor during surface preparation">
+                    </div>
+                    <div class="gallery-caption">
+                        <div class="gallery-caption-title">Project Photo – Coating Removal</div>
+                        <div class="gallery-caption-meta">Removing old floor coating prior to new system</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-media-wrapper">
+                        <img src="assets/images/IMG_5053.JPG"
+                             loading="lazy"
+                             alt="Red industrial dust extraction unit in large warehouse during concrete floor preparation works in Perth">
+                    </div>
+                    <div class="gallery-caption">
+                        <div class="gallery-caption-title">Project Photo – Warehouse Dust Control</div>
+                        <div class="gallery-caption-meta">High-capacity dust collector on large project</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-media-wrapper">
+                        <img src="assets/images/IMG_5066.JPG"
+                             loading="lazy"
+                             alt="Wide view of historic warehouse interior after shot blasting and grinding concrete floor by Specialist Contracting Services">
+                    </div>
+                    <div class="gallery-caption">
+                        <div class="gallery-caption-title">Project Photo – Warehouse Floor Prep</div>
+                        <div class="gallery-caption-meta">Old warehouse concrete refurbished for reuse</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-media-wrapper">
+                        <img src="assets/images/IMG_5067.JPG"
+                             loading="lazy"
+                             alt="Surface preparation crew treating concrete floor along embedded rails in historic warehouse before new coating installation">
+                    </div>
+                    <div class="gallery-caption">
+                        <div class="gallery-caption-title">Project Photo – Rail Area Surface Prep</div>
+                        <div class="gallery-caption-meta">Detail work around in-floor rails and edges</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-media-wrapper">
+                        <img src="assets/images/IMG_5073.JPG"
+                             loading="lazy"
+                             alt="Large industrial warehouse concrete floor fully prepared and ready for epoxy flooring installation in Perth">
+                    </div>
+                    <div class="gallery-caption">
+                        <div class="gallery-caption-title">Project Photo – Warehouse for Coating</div>
+                        <div class="gallery-caption-meta">Final floor profile ready for epoxy system</div>
+                    </div>
+                </div>
+
+                <!-- Videos -->
+                <div class="gallery-item">
+                    <div class="gallery-media-wrapper">
+                        <video src="assets/images/IMG_0099.mp4"
+                               controls
+                               playsinline
+                               muted
+                               preload="metadata"
+                               aria-label="Video of ride-on shot blasting machine preparing industrial concrete floor in Perth warehouse"></video>
+                    </div>
+                    <div class="gallery-caption">
+                        <div class="gallery-caption-title">Project Video – Ride-On Shot Blasting</div>
+                        <div class="gallery-caption-meta">On-site surface preparation</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-media-wrapper">
+                        <video src="assets/images/IMG_0100.mp4"
+                               controls
+                               playsinline
+                               muted
+                               preload="metadata"
+                               aria-label="Video of concrete floor shot blasting progress during industrial surface preparation project in Perth"></video>
+                    </div>
+                    <div class="gallery-caption">
+                        <div class="gallery-caption-title">Project Video – Shot Blasting Passes</div>
+                        <div class="gallery-caption-meta">Concrete profile being created</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-media-wrapper">
+                        <video src="assets/images/IMG_0101.mp4"
+                               controls
+                               playsinline
+                               muted
+                               preload="metadata"
+                               aria-label="Video showing follow-up concrete grinding and dust collection after shot blasting floor surface"></video>
+                    </div>
+                    <div class="gallery-caption">
+                        <div class="gallery-caption-title">Project Video – Dust Collection</div>
+                        <div class="gallery-caption-meta">Post-blast clean-up and refinement</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-media-wrapper">
+                        <video src="assets/images/IMG_0265.mp4"
+                               controls
+                               playsinline
+                               muted
+                               preload="metadata"
+                               aria-label="Video of Specialist Contracting Services team grinding and vacuuming industrial concrete floor in Perth"></video>
+                    </div>
+                    <div class="gallery-caption">
+                        <div class="gallery-caption-title">Project Video – Floor Grinding in Perth</div>
+                        <div class="gallery-caption-meta">Team using industrial grinders and vacuums</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-media-wrapper">
+                        <video src="assets/images/IMG_0323.mp4"
+                               controls
+                               playsinline
+                               muted
+                               preload="metadata"
+                               aria-label="Video close-up of shot blasting machine removing contaminants from concrete slab"></video>
+                    </div>
+                    <div class="gallery-caption">
+                        <div class="gallery-caption-title">Project Video – Close-Up Shot Blaster</div>
+                        <div class="gallery-caption-meta">Detail view of blasting process</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-media-wrapper">
+                        <video src="assets/images/IMG_0324.mp4"
+                               controls
+                               playsinline
+                               muted
+                               preload="metadata"
+                               aria-label="Video of epoxy floor coating being applied over mechanically prepared concrete surface"></video>
+                    </div>
+                    <div class="gallery-caption">
+                        <div class="gallery-caption-title">Project Video – Epoxy Coating Application</div>
+                        <div class="gallery-caption-meta">Epoxy being rolled onto prepared slab</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-media-wrapper">
+                        <video src="assets/images/IMG_4421.mp4"
+                               controls
+                               playsinline
+                               muted
+                               preload="metadata"
+                               aria-label="Video of worker operating shot blaster along wall edge to prepare concrete floor"></video>
+                    </div>
+                    <div class="gallery-caption">
+                        <div class="gallery-caption-title">Project Video – Edge Preparation</div>
+                        <div class="gallery-caption-meta">Blasting along wall lines and edges</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-media-wrapper">
+                        <video src="assets/images/IMG_4422.mp4"
+                               controls
+                               playsinline
+                               muted
+                               preload="metadata"
+                               aria-label="Video of surface preparation equipment working around columns and tight areas in warehouse"></video>
+                    </div>
+                    <div class="gallery-caption">
+                        <div class="gallery-caption-title">Project Video – Columns and Tight Areas</div>
+                        <div class="gallery-caption-meta">Detail work around obstructions</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-media-wrapper">
+                        <video src="assets/images/IMG_4424.mp4"
+                               controls
+                               playsinline
+                               muted
+                               preload="metadata"
+                               aria-label="Video of industrial vacuum system collecting dust from concrete shot blasting operation"></video>
+                    </div>
+                    <div class="gallery-caption">
+                        <div class="gallery-caption-title">Project Video – Dust Extraction</div>
+                        <div class="gallery-caption-meta">Dust control for clean worksite</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-media-wrapper">
+                        <video src="assets/images/IMG_4432.mp4"
+                               controls
+                               playsinline
+                               muted
+                               preload="metadata"
+                               aria-label="Video overview of large warehouse floor being prepared for new epoxy system in Perth"></video>
+                    </div>
+                    <div class="gallery-caption">
+                        <div class="gallery-caption-title">Project Video – Warehouse Overview</div>
+                        <div class="gallery-caption-meta">Large area preparation in progress</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-media-wrapper">
+                        <video src="assets/images/IMG_4438.mp4"
+                               controls
+                               playsinline
+                               muted
+                               preload="metadata"
+                               aria-label="Video montage of shot blasting and concrete grinding footage from SCS surface preparation projects"></video>
+                    </div>
+                    <div class="gallery-caption">
+                        <div class="gallery-caption-title">Project Video – Uniform Concrete Profile</div>
+                        <div class="gallery-caption-meta">Highlights from several projects</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-media-wrapper">
+                        <video src="assets/images/IMG_4440.mp4"
+                               controls
+                               playsinline
+                               muted
+                               preload="metadata"
+                               aria-label="Video showing continuous shot blasting passes creating uniform concrete profile on warehouse floor"></video>
+                    </div>
+                    <div class="gallery-caption">
+                        <div class="gallery-caption-title">Project Video – Uniform Concrete Profile</div>
+                        <div class="gallery-caption-meta">Consistent CSP for coating adhesion</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-media-wrapper">
+                        <video src="assets/images/IMG_4488.mp4"
+                               controls
+                               playsinline
+                               muted
+                               preload="metadata"
+                               aria-label="Video of Airworx X+ dust extractor operating during concrete surface preparation works"></video>
+                    </div>
+                    <div class="gallery-caption">
+                        <div class="gallery-caption-title">Project Video – Airworx Dust Extractor</div>
+                        <div class="gallery-caption-meta">Dust collector working with blaster/grinder</div>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-media-wrapper">
+                        <video src="assets/images/IMG_5065.mp4"
+                               controls
+                               playsinline
+                               muted
+                               preload="metadata"
+                               aria-label="Video of SCS team performing final vacuuming after shot blasting concrete floor in Perth warehouse"></video>
+                    </div>
+                    <div class="gallery-caption">
+                        <div class="gallery-caption-title">Project Video – Final Clean-Up</div>
+                        <div class="gallery-caption-meta">Final vacuum and inspection before coating</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+
+    <script src="assets/js/navbar.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/footer.js"></script>
+</body>
+</html>

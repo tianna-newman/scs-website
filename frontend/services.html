@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Shot blasting and surface grinding services in Perth. Professional concrete preparation for industrial and commercial projects by SCS.">
+<meta name="keywords" content="shot blasting, surface grinding, concrete grinding, floor preparation Perth, industrial surface prep">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.scse.com.au/services.html">
+<meta property="og:title" content="Our Services - Shot Blasting & Surface Grinding | SCS Perth">
+<meta property="og:description" content="Professional shot blasting and surface grinding services in Perth. Quality surface preparation for durable coatings.">
+<meta property="og:image" content="https://www.scse.com.au/assets/images/shot.jpg">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://www.scse.com.au/services.html">
+<meta property="twitter:title" content="Our Services - Shot Blasting & Surface Grinding | SCS Perth">
+<meta property="twitter:description" content="Professional shot blasting and surface grinding services in Perth.">
+<meta property="twitter:image" content="https://www.scse.com.au/assets/images/shot.jpg">
+
+    <title>SCS - Our Services | Specialist Contracting Services</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+
+    <!-- Services page-specific styles: full-page background + hero cards + sticky footer -->
+    <style>
+        /* Enable full-height layout for sticky footer */
+        html, body {
+            height: 100%;
+        }
+
+        /* Full-page background with flexbox layout to push footer to bottom */
+        body.services-page {
+            background-image: url('assets/images/bg.webp');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Wider container for services page on large screens */
+        body.services-page .services-overview .container {
+            max-width: 90vw;
+        }
+
+        /* Main content area fills remaining space, pushing footer down */
+        body.services-page .services-overview {
+            flex: 1;
+            background: transparent;
+            padding-top: 140px;
+            padding-bottom: 80px;
+        }
+
+        /* Prevent extra margin from pushing footer up */
+        .footer {
+            margin-top: 0;
+        }
+
+        /* Services grid: two large cards layout centered at 90vw */
+        .services-grid.services-grid--hero {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+
+            max-width: 90vw;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Individual service hero card with viewport-based height */
+        .service-hero {
+            position: relative;
+            height: min(45vh, 420px);
+            border-radius: 18px;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Background images for each service type */
+        .service-hero--shot {
+            background-image: url('assets/images/shot.jpg');
+        }
+
+        .service-hero--grind {
+            background-image: url('assets/images/grind.jpg');
+        }
+
+        /* Two-page structure: slide and video */
+        .service-hero-slide,
+        .service-hero-video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .service-hero-slide {
+            background-image: inherit;
+            background-size: inherit;
+            background-position: inherit;
+            background-repeat: inherit;
+
+            transform: translateX(0);
+            transition: transform 0.8s ease-in-out;
+        }
+
+        .service-hero-video {
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            transform: translateX(100%);
+            transition: transform 0.8s ease-in-out;
+        }
+
+        /* Slide animation on click */
+        .service-hero.show-video .service-hero-slide {
+            transform: translateX(-100%);
+        }
+
+        .service-hero.show-video .service-hero-video {
+            transform: translateX(0);
+        }
+
+        /* Overlay with gradient effect */
+        .service-hero .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to top,
+                rgba(0, 0, 0, 0.7),
+                rgba(0, 0, 0, 0.1)
+            );
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .service-hero .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: #ffffff;
+            padding: 0 24px;
+            max-width: 520px;
+            margin: 0 auto;
+        }
+
+        .service-hero .hero-content h3 {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .service-hero .hero-content p {
+            font-size: 1.05rem;
+            line-height: 1.5;
+            margin-bottom: 1.75rem;
+        }
+
+        /* Override global hero-buttons margin to prevent content overflow */
+        .service-hero .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 0;
+        }
+
+        /* Smaller button size for better card proportion */
+        .service-hero .btn {
+            padding: 10px 28px;
+            font-size: 0.95rem;
+        }
+
+        /* Video page content styling */
+        .service-hero .hero-video-inner {
+            width: 80%;
+            max-width: 500px;
+            text-align: center;
+            color: #ffffff;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .service-hero .hero-video-inner h4 {
+            margin-bottom: 0.75rem;
+        }
+
+        .service-hero .hero-video-inner p {
+            opacity: 0.8;
+        }
+
+        /* Responsive adjustments for mobile */
+        @media (max-width: 768px) {
+            .service-hero {
+                height: 320px;
+            }
+
+            .service-hero .hero-content h3 {
+                font-size: 1.6rem;
+            }
+
+            .service-hero .hero-content p {
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body class="services-page">
+    <!-- Navigation -->
+    <div id="navbar-placeholder"></div>
+
+    <!-- Services section -->
+    <section class="services-overview">
+        <div class="container">
+            <h2>Our Services</h2>
+
+            <div class="services-grid services-grid--hero">
+                <!-- Shot Blasting card -->
+                <div class="service-hero service-hero--shot">
+                    <div class="service-hero-slide">
+                        <div class="hero-overlay">
+                            <div class="hero-content">
+                                <h3>Shot Blasting</h3>
+                                <p>
+                                    Industrial-grade surface preparation to remove contaminants
+                                    and create the ideal profile for durable coating adhesion.
+                                </p>
+                                <div class="hero-buttons">
+                                    <button
+                                        class="btn btn-secondary service-learn-more"
+                                        data-video-url="https://www.youtube.com/watch?v=L9R2A3gNkpk&list=RDL9R2A3gNkpk&start_radio=1"
+                                    >
+                                        Learn More
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="service-hero-video">
+                        <div class="hero-video-inner">
+                            <h4>Opening video…</h4>
+                            <p>
+                                We're taking you to a YouTube demo of our shot blasting process
+                                in a new tab.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Surface Grinding card -->
+                <div class="service-hero service-hero--grind">
+                    <div class="service-hero-slide">
+                        <div class="hero-overlay">
+                            <div class="hero-content">
+                                <h3>Surface Grinding</h3>
+                                <p>
+                                    Precision grinding for smooth, level concrete surfaces,
+                                    ready for coatings, sealers, or floor coverings.
+                                </p>
+                                <div class="hero-buttons">
+                                    <button
+                                        class="btn btn-secondary service-learn-more"
+                                        data-video-url="https://www.youtube.com/watch?v=L9R2A3gNkpk&list=RDL9R2A3gNkpk&start_radio=1"
+                                    >
+                                        Learn More
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="service-hero-video">
+                        <div class="hero-video-inner">
+                            <h4>Opening video…</h4>
+                            <p>
+                                We're taking you to a YouTube demo that showcases our grinding
+                                and leveling capabilities.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+
+
+    <script src="assets/js/navbar.js"></script>
+        <script src="assets/js/main.js"></script>
+        <script src="assets/js/footer.js"></script>
+</body>
+</html>

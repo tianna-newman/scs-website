@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="description" content="Contact Specialist Contracting Services for a free quote on shot blasting and surface grinding in Perth. Call 0411 649 451 or submit an online enquiry.">
+<meta name="keywords" content="contact SCS Perth, surface preparation quote, shot blasting quote Perth, get a quote, contact form">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.scse.com.au/contact.html">
+<meta property="og:title" content="Contact Us / Get a Quote - SCS Perth">
+<meta property="og:description" content="Contact SCS for professional surface preparation services in Perth. Free quotes available.">
+<meta property="og:image" content="https://www.scse.com.au/assets/images/bg.webp">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://www.scse.com.au/contact.html">
+<meta property="twitter:title" content="Contact Us / Get a Quote - SCS Perth">
+<meta property="twitter:description" content="Contact SCS for professional surface preparation services in Perth. Free quotes available.">
+<meta property="twitter:image" content="https://www.scse.com.au/assets/images/bg.webp">
+
+    <title>Contact Us / Get a Quote | SCS - Specialist Contracting Services</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+
+    <!-- Page-specific styles for contact.html -->
+    <style>
+        
+
+        /* Main content section with compact padding */
+        .contact-section {
+            padding: 40px 0 40px;
+        }
+
+        /* Container with narrower margins for this page */
+        .contact-section .container {
+            max-width: 1100px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        .contact-section h2 {
+            text-align: left;
+            margin-bottom: 0.75rem;
+        }
+
+        .contact-intro {
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            color: #444;
+        }
+
+        /* Two-column grid: left for contact info, right for form */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 250px minmax(750px, 1fr);
+            gap: 30px;
+            align-items: stretch;
+        }
+
+        /* Vertical stack container for contact info cards */
+        .contact-info-stack {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        /* Semi-transparent glassmorphic cards */
+        .contact-card {
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            padding: 14px 16px 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+            backdrop-filter: blur(3px);
+        }
+
+        .contact-card h3 {
+            margin-bottom: 4px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #222;
+        }
+
+        .contact-card p {
+            margin-bottom: 4px;
+            font-size: 0.95rem;
+            color: #444;
+        }
+
+        .contact-card .card-emphasis {
+            font-weight: 600;
+            margin-top: 2px;
+        }
+
+        .card-links {
+            list-style: none;
+            padding: 0;
+            margin: 6px 0 0;
+        }
+
+        .card-links li {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 4px;
+        }
+
+        .card-icon {
+            font-size: 1rem;
+            line-height: 1;
+        }
+
+        .card-links a {
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            color: #000;
+        }
+
+        .card-links a:hover {
+            opacity: 0.8;
+        }
+
+        /* Form container with glassmorphic effect */
+        .contact-form {
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            padding: 22px 20px 18px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+            backdrop-filter: blur(3px);
+        }
+
+        .contact-form h3 {
+            margin-bottom: 0.85rem;
+            font-size: 1.25rem;
+            color: #2c3e50;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.94rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group span.required {
+            color: #e74c3c;
+            margin-left: 2px;
+        }
+
+        /* Input fields and textarea with semi-transparent background */
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group textarea {
+            width: 100%;
+            padding: 9px 11px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 6px;
+            font: inherit;
+            color: #111;
+            line-height: 1.4;
+            transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+        }
+
+        .form-group input[type="text"]::placeholder,
+        .form-group input[type="email"]::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        .form-group input[type="text"]:focus,
+        .form-group input[type="email"]:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #8e44ad;
+            box-shadow: 0 0 0 2px rgba(142, 68, 173, 0.15);
+            background: rgba(255, 255, 255, 0.18);
+        }
+
+        .form-group textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        /* Service type checkboxes */
+        .service-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.1rem;
+            margin-top: 4px;
+        }
+
+        .service-options label {
+            font-weight: 500;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .service-options input[type="checkbox"] {
+            width: auto;
+        }
+
+        /* Privacy consent checkbox */
+        .privacy-consent {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .privacy-consent input[type="checkbox"] {
+            margin-top: 3px;
+        }
+
+        .privacy-consent a {
+            color: #8e44ad;
+            text-decoration: none;
+        }
+
+        .privacy-consent a:hover {
+            text-decoration: underline;
+        }
+
+        .form-footer {
+            margin-top: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-note {
+            font-size: 0.85rem;
+            color: #777;
+        }
+
+        .btn-submit {
+            align-self: flex-start;
+        }
+
+        .btn.btn-primary {
+            cursor: pointer;
+        }
+
+        /* Mobile responsive styles */
+        @media (max-width: 768px) {
+            .contact-section {
+                padding: 70px 0 40px;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-info-stack {
+                height: auto;
+                justify-content: flex-start;
+                gap: 10px;
+            }
+
+            .contact-section .container {
+                max-width: 1000px;
+                margin: 0 auto;
+                padding: 0 24px;
+            }
+        }
+    </style>
+
+</head>
+<body class="contact-page">
+    <!-- Navigation -->
+    <div id="navbar-placeholder"></div>
+
+    <!-- Spacer to prevent content from being hidden behind fixed navbar -->
+    <div style="height: 50px;"></div>
+
+    <!-- Contact / Get a Quote Section -->
+    <section class="contact-section">
+        <div class="container">
+            <h2>Contact Us / Get a Quote</h2>
+
+            <p class="contact-intro">
+                Tell us a bit about your project and we'll get back to you with a quote or follow-up questions.
+                We usually respond within 1–2 business days.
+            </p>
+
+            <div class="contact-grid">
+                <!-- Left column: Contact information cards (vertical stack) -->
+                <div class="contact-info-stack">
+
+                    <div class="contact-card">
+                        <h3>Chat with us</h3>
+                        <p>Chat with our team.</p>
+                        <ul class="card-links">
+                            <li>
+                                <span class="card-icon">✉️</span>
+                                <a href="mailto:info@scse.com.au">E-mail</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="contact-card">
+                        <h3>Call Michael</h3>
+                        <p>Call us 8:00am–5:00pm.</p>
+                        <ul class="card-links">
+                            <li>
+                                <span class="card-icon">📞</span>
+                                <a href="tel:+61411649451">0411 649 451</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="contact-card">
+                        <h3>Office hours</h3>
+                        <p>Monday to Friday</p>
+                        <p class="card-emphasis">8:00am–5:00pm</p>
+                    </div>
+
+                    <div class="contact-card">
+                        <h3>Visit us</h3>
+                        <p>We are here</p>
+                        <p class="card-emphasis">
+                            20 Kwenda Loop<br>
+                            Capel WA 6271
+                        </p>
+                    </div>
+
+                </div>
+
+                <!-- Right column: Quote request form -->
+                <div class="contact-form">
+                    <h3>Request a Quote</h3>
+
+                    <!-- Form will be connected to Azure Functions or backend later -->
+                    <form id="contact-form" action="#" method="post" novalidate>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="fullName">
+                                    Full Name<span class="required">*</span>
+                                </label>
+                                <input type="text" id="fullName" name="fullName" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">
+                                    Email<span class="required">*</span>
+                                </label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="phone">
+                                    Phone<span class="required">*</span>
+                                </label>
+                                <input type="text" id="phone" name="phone" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="preferredDate">
+                                    Preferred / Approx. Date &amp; Time
+                                </label>
+                                <input type="text" id="preferredDate" name="preferredDate" placeholder="e.g. Early December, weekdays after 3pm">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>
+                                Service Type<span class="required">*</span>
+                            </label>
+                            <div class="service-options">
+                                <label>
+                                    <input type="checkbox" name="serviceType" value="shot-blasting">
+                                    Shot Blasting
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="serviceType" value="grinding">
+                                    Surface Grinding
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">
+                                Job Details<span class="required">*</span>
+                            </label>
+                            <textarea id="message" name="message" required
+                                placeholder="Tell us about the area (size, current surface, access), timing, and any special requirements."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="privacy-consent">
+                                <input type="checkbox" id="privacyConsent" name="privacyConsent" required>
+                                <label for="privacyConsent">
+                                    I agree that SCS may use my details to respond to this enquiry and provide quotes or
+                                    services. I have read the
+                                    <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a>.
+                                    <span class="required">*</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-footer">
+                            <button type="submit" class="btn btn-primary btn-submit">
+                                Send Enquiry
+                            </button>
+                            <p class="form-note">
+                                Fields marked with <span class="required">*</span> are required.
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+   
+    <div id="footer-placeholder"></div>
+
+    <script src="assets/js/navbar.js"></script>
+        <script src="assets/js/main.js"></script>
+        <script src="assets/js/footer.js"></script>
+</body>
+</html>
