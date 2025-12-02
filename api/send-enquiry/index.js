@@ -111,7 +111,10 @@ ${message}
     context.res = {
       status: 500,
       headers: { "Access-Control-Allow-Origin": "*" },
-      body: { success: false, error: "Failed to send email" },
+      body: {
+        success: false,
+        error: error && error.message ? error.message : "Failed to send email",
+      },
     };
   }
 };
