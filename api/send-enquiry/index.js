@@ -24,9 +24,15 @@ module.exports = async function (context, req) {
     }
   }
 
-  const { name, email, phone, message } = body || {};
+  const { name, email, phone, message, serviceType } = body || {};
+    
+  // 把服务类型数组整理成一行文字
+  let serviceSummary = "Not specified";
+  if (Array.isArray(serviceType) && serviceType.length > 0) {
+    serviceSummary = serviceType.join(", ");
+  }
 
-  context.log("Enquiry received", { name, email, phone });
+    context.log("Enquiry received", { name, email, phone, serviceType });
 
   if (!name || !email || !message) {
     context.res = {
@@ -79,6 +85,7 @@ You have a new enquiry from the SCS website.
 Name: ${name}
 Email: ${email}
 Phone: ${phone || "N/A"}
+Services: ${serviceSummary}
 
 Message:
 ${message}
@@ -87,7 +94,7 @@ ${message}
 This email was sent automatically from the SCS website enquiry form.
   `.trim();
 
-  const htmlBody = `
+    const htmlBody = `
   <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:14px;color:#222;">
     <h2 style="margin:0 0 8px 0;">New enquiry from SCS website</h2>
     <p style="margin:0 0 16px 0;">Hi Michael,</p>
@@ -108,6 +115,10 @@ This email was sent automatically from the SCS website enquiry form.
         <td style="padding:4px 8px;font-weight:bold;">Phone:</td>
         <td style="padding:4px 8px;">${phone || "N/A"}</td>
       </tr>
+      <tr>
+        <td style="padding:4px 8px;font-weight:bold;">Services:</td>
+        <td style="padding:4px 8px;">${serviceSummary}</td>
+      </tr>
     </table>
 
     <p style="margin:0 0 8px 0;"><strong>Message:</strong></p>
@@ -121,9 +132,8 @@ This email was sent automatically from the SCS website enquiry form.
   </div>
   `;
 
-
     const mailOptions = {
-    from: `"System Notification" <${fromEmail}>`,
+    from: `"SCS Website Notification" <${fromEmail}>`,
     to: toEmail,
     replyTo: email,
     subject,
