@@ -1,4 +1,4 @@
-const sgMail = require("@sendgrid/mail");
+const nodemailer = require("nodemailer");
 
 module.exports = async function (context, req) {
   // 处理 CORS 预检请求
@@ -37,13 +37,20 @@ module.exports = async function (context, req) {
     return;
   }
 
-  // 从环境变量读取 SendGrid 配置
-  const apiKey = process.env.SENDGRID_API_KEY;
-  const toEmail = process.env.EMAIL_TO || "info@scse.com.au"; // 收件人
-  const fromEmail = process.env.EMAIL_FROM || "no-reply@scse.com.au"; // 发件人（需要在 SendGrid 里验证）
+  // ===== 配置 SMTP（Outlook / Microsoft 365）=====
+  const host = process.env.SMTP_HOST || "smtp.office365.com";
+  const port = process.env.SMTP_PORT
+    ? parseInt(process.env.SMTP_PORT, 10)
+    : 587; // TLS
+  const user = process.env.SMTP_USER; // 一般就是 info@scse.com.au
+  const pass = process.env.SMTP_PASS; // 这个邮箱的密码
 
-  if (!apiKey) {
-    context.log("SENDGRID_API_KEY is not set");
+  const toEmail = process.env.EMAIL_TO || "info@scse.com.au"; // 收件人
+  const fromEmail =
+    process.env.EMAIL_FROM || user || "info@scse.com.au"; // 发件人
+
+  if (!user || !pass) {
+    context.log("SMTP_USER or SMTP_PASS is not set");
     context.res = {
       status: 500,
       headers: { "Access-Control-Allow-Origin": "*" },
@@ -52,7 +59,15 @@ module.exports = async function (context, req) {
     return;
   }
 
-  sgMail.setApiKey(apiKey);
+  const transporter = nodemailer.createTransport({
+    host,
+    port,
+    secure: port === 465, // 465 才用 SSL，587 用 STARTTLS
+    auth: {
+      user,
+      pass,
+    },
+  });
 
   const subject = "New enquiry from SCS website";
   const textBody = `
@@ -75,17 +90,17 @@ ${message}
     <p>${(message || "").replace(/\n/g, "<br>")}</p>
   `;
 
-  const msg = {
-    to: toEmail,
+  const mailOptions = {
     from: fromEmail,
-    replyTo: email, // 方便你在邮箱里直接点“回复”
+    to: toEmail,
+    replyTo: email,
     subject,
     text: textBody,
     html: htmlBody,
   };
 
   try {
-    await sgMail.send(msg);
+    await transporter.sendMail(mailOptions);
     context.res = {
       status: 200,
       headers: { "Access-Control-Allow-Origin": "*" },
@@ -93,10 +108,6 @@ ${message}
     };
   } catch (error) {
     context.log("Error sending email", error);
-    if (error.response) {
-      context.log("SendGrid response body:", error.response.body);
-    }
-
     context.res = {
       status: 500,
       headers: { "Access-Control-Allow-Origin": "*" },
