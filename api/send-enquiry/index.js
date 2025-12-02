@@ -85,7 +85,7 @@ You have a new enquiry from the SCS website.
 Name: ${name}
 Email: ${email}
 Phone: ${phone || "N/A"}
-Services: ${serviceSummary}
+Services Wanted: ${serviceSummary}
 
 Message:
 ${message}
