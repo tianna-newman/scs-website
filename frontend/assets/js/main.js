@@ -98,22 +98,73 @@ document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('contact-form');
   if (!form) return;
 
-  form.addEventListener('submit', (e) => {
-    e.preventDefault(); // Prevent default form submission/page refresh
+  const statusEl = document.getElementById('form-status');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault(); // 防止默认提交
 
     const fullName = form.fullName.value.trim();
     const email = form.email.value.trim();
     const phone = form.phone.value.trim();
     const message = form.message.value.trim();
 
-    // Basic validation check
-    if (!fullName || !email || !phone || !message) {
-      alert('Please fill in all required fields.');
+    // 基础校验（phone 可选的话你可以去掉 phone 的判断）
+    if (!fullName || !email || !message) {
+      if (statusEl) {
+        statusEl.textContent = "Please fill in all required fields.";
+        statusEl.style.color = "red";
+      } else {
+        alert("Please fill in all required fields.");
+      }
       return;
     }
 
-    // TODO: Add backend API call here in production
-    console.log('Form data ready to send:', { fullName, email, phone, message });
-    alert('This is a demo. In production this will send your enquiry.');
+    const payload = {
+      name: fullName,   // 注意：发送给 API 的字段是 name
+      email,
+      phone,
+      message
+    };
+
+    try {
+      if (statusEl) {
+        statusEl.textContent = "Sending...";
+        statusEl.style.color = "";
+      }
+
+      const res = await fetch("/api/send-enquiry", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      const result = await res.json();
+
+      if (result.success) {
+        if (statusEl) {
+          statusEl.textContent = "Thank you — your enquiry has been sent.";
+          statusEl.style.color = "green";
+        } else {
+          alert("Thank you — your enquiry has been sent.");
+        }
+        form.reset();
+      } else {
+        const msg = "Failed to send. " + (result.error || "");
+        if (statusEl) {
+          statusEl.textContent = msg;
+          statusEl.style.color = "red";
+        } else {
+          alert(msg);
+        }
+      }
+    } catch (err) {
+      console.error(err);
+      if (statusEl) {
+        statusEl.textContent = "Network error — please try again later.";
+        statusEl.style.color = "red";
+      } else {
+        alert("Network error — please try again later.");
+      }
+    }
   });
 });
