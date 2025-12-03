@@ -39,9 +39,10 @@ body {
     height: auto;
     padding: 8px 25px;
 
-    background: rgba(0, 0, 0, 0.05);
-    backdrop-filter: blur(0px);
-    -webkit-backdrop-filter: blur(0px);
+    /* 一开始就是毛玻璃效果 */
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
 
     transition: background 0.3s ease,
                 backdrop-filter 0.3s ease,
@@ -265,6 +266,13 @@ body {
     text-align: center;
     color: #ffffff;
     padding: 0 20px;
+    
+    /* 把内容块移到底部 */
+    position: absolute;
+    bottom: 50px;  /* 距离底部 80px */
+    left: 0;
+    right: 0;
+    width: 100%;
 }
 
 .hero-title {
@@ -285,7 +293,7 @@ body {
     display: flex;
     gap: 1rem;
     justify-content: center;
-    margin-top: 25rem;
+    margin-top: 0;
 }
 
 /* Generic button styles */
@@ -655,7 +663,7 @@ h2 {
 }
 
 .page-with-bg {
-    background-image: url('../images/bg.webp');
+    background-image: url('../images/landing.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
