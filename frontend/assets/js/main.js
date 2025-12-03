@@ -165,24 +165,32 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ===== Phone (AU only: 10 digits, starts with 04 or 08) =====
-    const phoneDigits = phoneRaw.replace(/\D/g, '');
-    if (!phoneDigits) {
-      valid = false;
-      if (showErrors) setError(phoneError, 'Phone number is required.');
-    } else if (
-      phoneDigits.length !== 10 ||
-      !(phoneDigits.startsWith('04') || phoneDigits.startsWith('08'))
-    ) {
-      valid = false;
-      if (showErrors) {
-        setError(
-          phoneError,
-          'Please enter a valid Australian phone number (10 digits starting with 04 or 08).'
-        );
-      }
-    } else {
-      if (showErrors) clearError(phoneError);
-    }
+    // ===== Phone (AU only: 10 digits, starts with 04 or 08) =====
+const phoneDigits = phoneRaw.replace(/\D/g, '');
+
+// 检查是否包含非数字字符
+const hasNonDigits = /\D/.test(phoneRaw.trim());
+
+if (!phoneDigits) {
+  valid = false;
+  if (showErrors) setError(phoneError, 'Phone number is required.');
+} else if (hasNonDigits) {
+  valid = false;
+  if (showErrors) setError(phoneError, 'Phone number must contain only digits.');
+} else if (
+  phoneDigits.length !== 10 ||
+  !(phoneDigits.startsWith('04') || phoneDigits.startsWith('08'))
+) {
+  valid = false;
+  if (showErrors) {
+    setError(
+      phoneError,
+      'Please enter a valid Australian phone number (10 digits starting with 04 or 08).'
+    );
+  }
+} else {
+  if (showErrors) clearError(phoneError);
+}
 
     // ===== Service type (at least one) =====
     const selectedServices = Array.from(serviceCheckboxes).filter(cb => cb.checked);
@@ -323,6 +331,244 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       // 网络错误也跳错误页
       window.location.href = 'error.html';
+    }
+  });
+});
+
+// Home page contact form - reuse same validation logic
+document.addEventListener('DOMContentLoaded', () => {
+  const homeForm = document.getElementById('home-contact-form');
+  if (!homeForm) return;
+
+  const statusEl = document.getElementById('home-form-status');
+  const submitBtn = document.getElementById('home-submit-btn');
+
+  // Fields
+  const nameInput = document.getElementById('homeFullName');
+  const emailInput = document.getElementById('homeEmail');
+  const phoneInput = document.getElementById('homePhone');
+  const preferredDateInput = document.getElementById('homePreferredDate');
+  const messageInput = document.getElementById('homeMessage');
+  const serviceCheckboxes = homeForm.querySelectorAll('input[name="serviceType"]');
+  const privacyCheckbox = document.getElementById('homePrivacyConsent');
+
+  // Error elements
+  const nameError = document.getElementById('home-name-error');
+  const emailError = document.getElementById('home-email-error');
+  const phoneError = document.getElementById('home-phone-error');
+  const serviceError = document.getElementById('home-service-error');
+  const messageError = document.getElementById('home-message-error');
+  const privacyError = document.getElementById('home-privacy-error');
+
+  const RATE_LIMIT_MS = 30_000;
+  let lastSubmitTime = 0;
+
+  function setError(el, msg) {
+    if (!el) return;
+    el.textContent = msg;
+    el.style.display = 'block';
+  }
+
+  function clearError(el) {
+    if (!el) return;
+    el.textContent = '';
+    el.style.display = 'none';
+  }
+
+  function validateForm(showErrors) {
+    let valid = true;
+
+    const nameVal = (nameInput && nameInput.value || '').trim();
+    const emailVal = (emailInput && emailInput.value || '').trim();
+    const phoneRaw = (phoneInput && phoneInput.value) || '';
+    const msgVal = (messageInput && messageInput.value || '').trim();
+
+    // Full name
+    if (!nameVal) {
+      valid = false;
+      if (showErrors) setError(nameError, 'Full name is required.');
+    } else if (nameVal.length > 80) {
+      valid = false;
+      if (showErrors) setError(nameError, 'Full name is too long (max 80 characters).');
+    } else {
+      if (showErrors) clearError(nameError);
+    }
+
+    // Email
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailVal) {
+      valid = false;
+      if (showErrors) setError(emailError, 'Email is required.');
+    } else if (!emailPattern.test(emailVal)) {
+      valid = false;
+      if (showErrors) setError(emailError, 'Please enter a valid email address.');
+    } else {
+      if (showErrors) clearError(emailError);
+    }
+
+    // Phone
+    const phoneDigits = phoneRaw.replace(/\D/g, '');
+    if (!phoneDigits) {
+      valid = false;
+      if (showErrors) setError(phoneError, 'Phone number is required.');
+    } else if (
+      phoneDigits.length !== 10 ||
+      !(phoneDigits.startsWith('04') || phoneDigits.startsWith('08'))
+    ) {
+      valid = false;
+      if (showErrors) {
+        setError(
+          phoneError,
+          'Please enter a valid Australian phone number (10 digits starting with 04 or 08).'
+        );
+      }
+    } else {
+      if (showErrors) clearError(phoneError);
+    }
+
+    // Service type
+    const selectedServices = Array.from(serviceCheckboxes).filter(cb => cb.checked);
+    if (selectedServices.length === 0) {
+      valid = false;
+      if (showErrors) setError(serviceError, 'Please select at least one service type.');
+    } else {
+      if (showErrors) clearError(serviceError);
+    }
+
+    // Message
+    if (!msgVal) {
+      valid = false;
+      if (showErrors) setError(messageError, 'Job details cannot be empty.');
+    } else if (msgVal.length > 2000) {
+      valid = false;
+      if (showErrors) setError(messageError, 'Job details are too long (max 2000 characters).');
+    } else {
+      if (showErrors) clearError(messageError);
+    }
+
+    // Privacy consent
+    if (!privacyCheckbox || !privacyCheckbox.checked) {
+      valid = false;
+      if (showErrors)
+        setError(
+          privacyError,
+          'Please tick this box so we can use your details to respond to your enquiry.'
+        );
+    } else {
+      if (showErrors) clearError(privacyError);
+    }
+
+    if (submitBtn) {
+      submitBtn.disabled = !valid;
+    }
+
+    return valid;
+  }
+
+  function attachLiveValidation() {
+    const inputs = [nameInput, emailInput, phoneInput, messageInput, preferredDateInput];
+
+    inputs.forEach(input => {
+      if (!input) return;
+      input.addEventListener('input', () => {
+        validateForm(true);
+        if (statusEl) statusEl.textContent = '';
+      });
+    });
+
+    serviceCheckboxes.forEach(cb => {
+      cb.addEventListener('change', () => {
+        validateForm(true);
+        if (statusEl) statusEl.textContent = '';
+      });
+    });
+
+    if (privacyCheckbox) {
+      privacyCheckbox.addEventListener('change', () => {
+        validateForm(true);
+        if (statusEl) statusEl.textContent = '';
+      });
+    }
+  }
+
+  attachLiveValidation();
+  validateForm(false);
+
+  homeForm.addEventListener('submit', async e => {
+    e.preventDefault();
+
+    if (!validateForm(true)) {
+      if (statusEl) {
+        statusEl.textContent = 'Please fix the fields shown in red.';
+        statusEl.style.color = 'red';
+      }
+      return;
+    }
+
+    const now = Date.now();
+    if (now - lastSubmitTime < RATE_LIMIT_MS) {
+      if (statusEl) {
+        statusEl.textContent =
+          'You are sending enquiries too quickly. Please wait a moment and try again.';
+        statusEl.style.color = 'red';
+      }
+      return;
+    }
+    lastSubmitTime = now;
+
+    const selectedServices = Array.from(serviceCheckboxes)
+      .filter(cb => cb.checked)
+      .map(cb => cb.value);
+
+    const payload = {
+      name: nameInput.value.trim(),
+      email: emailInput.value.trim(),
+      phone: phoneInput.value.trim(),
+      preferredDate: preferredDateInput ? preferredDateInput.value.trim() : '',
+      message: messageInput.value.trim(),
+      serviceType: selectedServices,
+      privacyConsent: !!(privacyCheckbox && privacyCheckbox.checked)
+    };
+
+    try {
+      if (statusEl) {
+        statusEl.textContent = 'Sending...';
+        statusEl.style.color = '';
+      }
+
+      const res = await fetch('/api/send-enquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      const result = await res.json();
+
+      if (res.status === 429) {
+        if (statusEl) {
+          statusEl.textContent = result.error || 'Too many requests. Please wait and try again.';
+          statusEl.style.color = 'red';
+        }
+        setTimeout(() => {
+          window.location.href = 'error.html?type=rate-limit';
+        }, 2000);
+        return;
+      }
+
+      if (result.success) {
+        window.location.href = 'thanks.html';
+      } else {
+        window.location.href = 'error.html?type=server-error';
+      }
+    } catch (err) {
+      console.error(err);
+      if (statusEl) {
+        statusEl.textContent = 'Network error – please try again later.';
+        statusEl.style.color = 'red';
+      }
+      setTimeout(() => {
+        window.location.href = 'error.html?type=network-error';
+      }, 1500);
     }
   });
 });
