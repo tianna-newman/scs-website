@@ -1,5 +1,16 @@
 const nodemailer = require("nodemailer");
 
+// HTML 转义函数，防止 XSS 攻击
+function escapeHtml(text) {
+  if (!text) return '';
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
 module.exports = async function (context, req) {
   // CORS 预检
   if (req.method === "OPTIONS") {
@@ -54,6 +65,33 @@ module.exports = async function (context, req) {
     preferredDate,
     serviceType: serviceList,
   });
+
+  // ===== 后端速率限制（基于 IP） =====
+  const clientIp = req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || 'unknown';
+  const rateLimitKey = `ratelimit_${clientIp}`;
+  const now = Date.now();
+
+  // 注意：这是内存存储，Function 重启会清空
+  // 生产环境建议使用 Azure Table Storage 或 Redis
+  if (!global.rateLimitStore) {
+    global.rateLimitStore = {};
+  }
+
+  const lastSubmit = global.rateLimitStore[rateLimitKey];
+  if (lastSubmit && (now - lastSubmit) < 60000) { // 60秒限制
+    context.log('Rate limit exceeded for IP:', clientIp);
+    context.res = {
+      status: 429,
+      headers: { "Access-Control-Allow-Origin": "*" },
+      body: { 
+        success: false, 
+        error: "Too many requests. Please wait 1 minute before submitting again." 
+      },
+    };
+    return;
+  }
+
+  global.rateLimitStore[rateLimitKey] = now;
 
   if (!name || !email || !message) {
     context.res = {
@@ -126,7 +164,7 @@ ${message}
 This email was sent automatically from the SCS website enquiry form.
   `.trim();
 
-  const htmlBody = `
+ const htmlBody = `
   <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:14px;color:#222;">
     <h2 style="margin:0 0 8px 0;">New enquiry from SCS website</h2>
     <p style="margin:0 0 16px 0;">Hi Michael,</p>
@@ -137,23 +175,23 @@ This email was sent automatically from the SCS website enquiry form.
     <table cellspacing="0" cellpadding="0" style="border-collapse:collapse;margin:0 0 16px 0;">
       <tr>
         <td style="padding:4px 8px;font-weight:bold;">Name:</td>
-        <td style="padding:4px 8px;">${name}</td>
+        <td style="padding:4px 8px;">${escapeHtml(name)}</td>
       </tr>
       <tr>
         <td style="padding:4px 8px;font-weight:bold;">Email:</td>
-        <td style="padding:4px 8px;">${email}</td>
+        <td style="padding:4px 8px;">${escapeHtml(email)}</td>
       </tr>
       <tr>
         <td style="padding:4px 8px;font-weight:bold;">Phone:</td>
-        <td style="padding:4px 8px;">${phone || "N/A"}</td>
+        <td style="padding:4px 8px;">${escapeHtml(phone || "N/A")}</td>
       </tr>
       <tr>
         <td style="padding:4px 8px;font-weight:bold;">Preferred Date/Time:</td>
-        <td style="padding:4px 8px;">${preferredDate || "Not specified"}</td>
+        <td style="padding:4px 8px;">${escapeHtml(preferredDate || "Not specified")}</td>
       </tr>
       <tr>
         <td style="padding:4px 8px;font-weight:bold;">Services:</td>
-        <td style="padding:4px 8px;">${serviceSummary}</td>
+        <td style="padding:4px 8px;">${escapeHtml(serviceSummary)}</td>
       </tr>
       <tr>
         <td style="padding:4px 8px;font-weight:bold;">Privacy Consent:</td>
@@ -167,14 +205,14 @@ This email was sent automatically from the SCS website enquiry form.
 
     <p style="margin:0 0 8px 0;"><strong>Message:</strong></p>
     <div style="margin:0 0 24px 0;padding:12px 14px;border-radius:6px;border:1px solid #e0e0e0;background:#f5f5f5;white-space:pre-wrap;">
-      ${(message || "").replace(/\n/g, "<br>")}
+      ${escapeHtml(message || "").replace(/\n/g, "<br>")}
     </div>
 
     <p style="margin:0;font-size:12px;color:#666;">
       This email was sent automatically from the SCS website enquiry form.
     </p>
   </div>
-  `;
+  `; 
 
   const mailOptions = {
     from: `"SCS Website Notification" <${fromEmail}>`,

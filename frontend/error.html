@@ -129,17 +129,20 @@
             </div>
 
             <div class="error-card">
+    <!-- 动态错误信息区域 -->
+            <div id="error-message">
                 <p>
                     Your message could not be sent due to a temporary error in the system.
                 </p>
                 <p>
                     You can try submitting the form again, or use one of the direct contact options below.
                 </p>
+            </div>
 
-                <p class="small-note">
-                    Phone: <a href="tel:+61411649451">0411 649 451</a><br>
-                    Email: <a href="mailto:info@scse.com.au">info@scse.com.au</a>
-                </p>
+            <p class="small-note">
+                Phone: <a href="tel:+61411649451">0411 649 451</a><br>
+                Email: <a href="mailto:info@scse.com.au">info@scse.com.au</a>
+            </p>
 
                 <div class="error-actions">
                     <a href="contact.html" class="btn btn-error">Try again</a>
@@ -152,7 +155,77 @@
     <!-- Footer -->
     <div id="footer-placeholder"></div>
 
+    <!-- 错误类型检测脚本 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 获取 URL 参数
+            const urlParams = new URLSearchParams(window.location.search);
+            const errorType = urlParams.get('type');
+            const errorMessageDiv = document.getElementById('error-message');
+            
+            if (!errorMessageDiv) return;
 
+            // 根据错误类型显示不同的提示
+            let errorHTML = '';
+            
+            switch(errorType) {
+                case 'rate-limit':
+                    errorHTML = `
+                        <p><strong>⏱️ Too Many Requests</strong></p>
+                        <p>
+                            You have submitted the form multiple times in a short period. 
+                            To prevent abuse, please wait 1 minute before trying again.
+                        </p>
+                        <p>
+                            If your enquiry is urgent, please call us directly.
+                        </p>
+                    `;
+                    break;
+                    
+                case 'network-error':
+                    errorHTML = `
+                        <p><strong>🌐 Network Connection Failed</strong></p>
+                        <p>
+                            Unable to connect to the server. This may be due to an 
+                            unstable internet connection.
+                        </p>
+                        <p>
+                            Please check your network connection and try again, 
+                            or contact us directly.
+                        </p>
+                    `;
+                    break;
+                    
+                case 'server-error':
+                    errorHTML = `
+                        <p><strong>⚠️ Server Error</strong></p>
+                        <p>
+                            The server encountered an error while processing your request. 
+                            Our technical team will resolve this issue as soon as possible.
+                        </p>
+                        <p>
+                            Please try again later, or contact us via phone or email.
+                        </p>
+                    `;
+                    break;
+                    
+                default:
+                    // 未知错误或没有参数时显示通用错误
+                    errorHTML = `
+                        <p>
+                            Your message could not be sent due to a temporary error in the system.
+                        </p>
+                        <p>
+                            You can try submitting the form again, or use one of the direct contact options below.
+                        </p>
+                    `;
+            }
+            
+            errorMessageDiv.innerHTML = errorHTML;
+        });
+    </script>
+
+    
     <script src="assets/js/navbar.js"></script>
         <script src="assets/js/main.js"></script>
         <script src="assets/js/footer.js"></script>

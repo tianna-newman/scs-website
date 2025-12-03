@@ -308,21 +308,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const result = await res.json();
 
+      // ===== 处理速率限制错误 =====
+      // ===== 处理速率限制错误 =====
+      if (res.status === 429) {
+        if (statusEl) {
+          statusEl.textContent = result.error || 'Too many requests. Please wait and try again.';
+          statusEl.style.color = 'red';
+        }
+        // 2秒后跳转到错误页，带上错误类型参数
+        setTimeout(() => {
+          window.location.href = 'error.html?type=rate-limit';
+        }, 2000);
+        return;
+      }
+
       if (result.success) {
         // 成功：跳转感谢页
         window.location.href = 'thanks.html';
       } else {
         // 后端返回失败：跳转错误页
-        window.location.href = 'error.html';
+        window.location.href = 'error.html?type=server-error';
       }
     } catch (err) {
-      console.error(err);
-      if (statusEl) {
-        statusEl.textContent = 'Network error — please try again later.';
-        statusEl.style.color = 'red';
+        console.error(err);
+        if (statusEl) {
+          statusEl.textContent = 'Network error – please try again later.';
+          statusEl.style.color = 'red';
+        }
+        // 网络错误也跳错误页，带上错误类型
+        setTimeout(() => {
+          window.location.href = 'error.html?type=network-error';
+        }, 1500);
       }
-      // 网络错误也跳错误页
-      window.location.href = 'error.html';
-    }
   });
 });
